@@ -229,7 +229,7 @@ header .themeSelector .activeTheme {
   cursor: pointer;
 }
 
-.showTask i.bi-trash {
+.showTask i.bi-trash3 {
   font-size: 18px;
   color: #D82148;
   cursor: pointer;

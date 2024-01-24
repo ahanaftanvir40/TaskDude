@@ -1,6 +1,16 @@
 
-export const ShowTask = ({ tasks, setTasks }) => {
+export const ShowTask = ({ tasks, setTasks, eachTask, setEachTask }) => {
+    const handleDelete = (taskId) => {
+        const updatedTodo = tasks.filter((t_id) => taskId !== t_id.id)
+        setTasks(updatedTodo)
+    }
+    const handleEdit = (taskId) => {
+        const editedTodo = tasks.find((t_id) => {
+            return taskId === t_id.id
+        })
+        setEachTask(editedTodo)
 
+    }
 
     return (
         <section className="showTask">
@@ -19,8 +29,8 @@ export const ShowTask = ({ tasks, setTasks }) => {
                             <span className="name">{task.name}</span>
                             <span className="time"> {task.time}</span>
                         </p>
-                        <i className="bi bi-pencil-square"></i>
-                        <i className="bi bi-trash3"></i>
+                        <i onClick={() => handleEdit(task.id)} className="bi bi-pencil-square"></i>
+                        <i onClick={() => handleDelete(task.id)} className="bi bi-trash3"></i>
                     </li>
                 ))}
 

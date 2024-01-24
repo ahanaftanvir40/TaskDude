@@ -9,12 +9,13 @@ import './App.css';
 function App() {
 
   const [tasks, setTasks] = useState([]);
+  const [eachTask, setEachTask] = useState({})
 
   return (
     <div className="App">
       <Header />
-      <AddTask tasks={tasks} setTasks={setTasks} />
-      <ShowTask tasks={tasks} setTasks={setTasks} />
+      <AddTask tasks={tasks} setTasks={setTasks} eachTask={eachTask} setEachTask={setEachTask} />
+      <ShowTask tasks={tasks} setTasks={setTasks} eachTask={eachTask} setEachTask={setEachTask} />
     </div>
   );
 }
