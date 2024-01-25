@@ -41,7 +41,11 @@ export const TimeSet = ({ task }) => {
                 }
             }, 1000);
 
-            return () => clearInterval(alarmInterval);
+            // Check if it's the initial render and reset localStorage
+            if (!hasStarted) {
+                localStorage.setItem(`isAlarmSet-${task.id}`, 'false');
+                return () => clearInterval(alarmInterval);
+            }
         }
     }, [isAlarmSet, alarmStartTime, alarmEndTime, task, hasStarted]);
 
