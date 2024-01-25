@@ -39,3 +39,5 @@ export const AddTask = ({ tasks, setTasks, eachTask, setEachTask }) => {
         </section>
     )
 }
+
+

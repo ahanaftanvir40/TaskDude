@@ -1,3 +1,4 @@
+import { TimeSet } from "./TimeSet"
 
 export const ShowTask = ({ tasks, setTasks, eachTask, setEachTask }) => {
     const handleDelete = (taskId) => {
@@ -25,9 +26,13 @@ export const ShowTask = ({ tasks, setTasks, eachTask, setEachTask }) => {
             <ul>
                 {tasks.map((task) => (
                     <li key={task.id}>
+
+
+
                         <p>
                             <span className="name">{task.name}</span>
                             <span className="time"> {task.time}</span>
+                            <TimeSet task={task} />
                         </p>
                         <i onClick={() => handleEdit(task.id)} className="bi bi-pencil-square"></i>
                         <i onClick={() => handleDelete(task.id)} className="bi bi-trash3"></i>

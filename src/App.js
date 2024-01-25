@@ -7,6 +7,7 @@ import './App.css';
 import { Pomodoro } from './components/Pomodoro';
 
 
+
 function App() {
   // we need tp parse while  getting
   const [tasks, setTasks] = useState(JSON.parse(localStorage.getItem("tasks")) || []); //if getitem doesn't exists it will show empty []
