@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 export const TimeSet = ({ task }) => {
 
-
     const [currentTime, setCurrentTime] = useState(new Date());
     const [alarmStartTime, setAlarmStartTime] = useState(
         localStorage.getItem(`alarmStartTime-${task.id}`) || ''
@@ -13,6 +12,7 @@ export const TimeSet = ({ task }) => {
     const [isAlarmSet, setIsAlarmSet] = useState(
         localStorage.getItem(`isAlarmSet-${task.id}`) === 'true'
     );
+    const [hasStarted, setHasStarted] = useState(false); // Add this line
 
     useEffect(() => {
         const intervalId = setInterval(() => {
@@ -26,27 +26,24 @@ export const TimeSet = ({ task }) => {
         if (isAlarmSet) {
             const alarmInterval = setInterval(() => {
                 const now = new Date();
+                const startDateTime = new Date(alarmStartTime);
                 const endDateTime = new Date(alarmEndTime);
 
+                if (now >= startDateTime && !hasStarted) {
+                    alert(`Alarm for task "${task.name}"! It's time to start!`);
+                    setHasStarted(true);
+                }
+
                 if (now >= endDateTime) {
-                    alert(`Alarm for task "${task.name}"! Time to wake up!`);
+                    alert(`Alarm for task "${task.name}"! It's time to end!`);
                     setIsAlarmSet(false);
                     clearInterval(alarmInterval);
                 }
             }, 1000);
 
-            // Check if the current time is greater than or equal to alarmEndTime
-            const now = new Date();
-            const endDateTime = new Date(alarmEndTime);
-
-            if (now >= endDateTime) {
-                setIsAlarmSet(false);
-                clearInterval(alarmInterval);
-            }
-
             return () => clearInterval(alarmInterval);
         }
-    }, [isAlarmSet, alarmEndTime, task]);
+    }, [isAlarmSet, alarmStartTime, alarmEndTime, task, hasStarted]);
 
     const handleSetAlarm = () => {
         const [startHours, startMinutes] = alarmStartTime.split(':');
@@ -65,7 +62,9 @@ export const TimeSet = ({ task }) => {
         setAlarmStartTime(newAlarmStartTime);
         setAlarmEndTime(newAlarmEndTime);
         setIsAlarmSet(true);
+        setHasStarted(false); // Reset hasStarted when setting a new alarm
     };
+
     return (
         <div style={styles.container}>
             <h1 style={styles.header}>Set Your Alarm</h1>
